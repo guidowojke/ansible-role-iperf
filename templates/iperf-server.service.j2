@@ -20,7 +20,7 @@ Nice=-20
 IOSchedulingClass=realtime
 IOSchedulingPriority=0
 
-ExecStart=/bin/bash -c '{{ iperf_executable }} --server --port {{ iperf_port }} --logfile {{ iperf_log_folder }}/iperf.log {{ iperf_debug_options }}'
+ExecStart=/bin/bash -c '{{ iperf_executable }} --server --port {{ iperf_port }} --logfile {{ iperf_log_folder }}/iperf.log {{ iperf_debug_options }} {{ iperf_ipv4_options }} {{ iperf_ipv6_options }}'
 
 SyslogIdentifier={{ iperf_username }}
 
