@@ -1,0 +1,4 @@
+---
+iperf_package: iperf3
+iperf_executable: iperf3
+iperf_port: 5001
