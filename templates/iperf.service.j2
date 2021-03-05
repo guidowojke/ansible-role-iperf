@@ -1,0 +1,28 @@
+[Unit]
+Description=Iperf-Server
+After=network.target
+StartLimitIntervalSec=0
+
+# Documentation:
+#   https://manpages.ubuntu.com/manpages/cosmic/man5/systemd.service.5.html
+#
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=10
+User={{ iperf_username }}
+Group={{ iperf_username }}
+NoNewPrivileges=true
+ProtectSystem=true
+ProtectHome=true
+Nice=-20
+IOSchedulingClass=realtime
+IOSchedulingPriority=0
+
+ExecStart=/bin/bash -c '{{ iperf_executable }} --server --port {{ iperf_port }} --logfile {{ iperf_log_folder }}/iperf.log {{ iperf_debug_options }}'
+
+SyslogIdentifier={{ iperf_username }}
+
+[Install]
+WantedBy=multi-user.target

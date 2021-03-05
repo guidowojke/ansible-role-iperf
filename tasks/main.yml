@@ -1,1 +1,73 @@
 ---
+- name: Install iperf
+  apt:
+    autoclean: true
+    autoremove: true
+    state: present
+    pkg:
+      - "{{ iperf_package }}"
+  become: true
+
+# Add iperf group
+- name: "Ensure group {{ iperf_username }} exists"
+  group:
+    name: "{{ iperf_username }}"
+    state: present
+  become: true
+
+# Add iperf user
+- name: "Add the user {{ iperf_username }}"
+  user:
+    name: "{{ iperf_username }}"
+    comment: IPerfServer
+    group: "{{ iperf_username }}"
+    system: true
+    create_home: false
+    shell: /sbin/nologin
+  become: true
+
+# create iperf log folder
+- name: create iperf log directory
+  file:
+    path: "{{ iperf_log_folder }}"
+    state: directory
+    owner: "{{ iperf_username }}"
+    group: "{{ iperf_username }}"
+    mode: '0755'
+  become: true
+
+# create iperf logrotate folder
+- name: create iperf logrotate directory
+  file:
+    path: "{{ iperf_logrotate_folder }}"
+    state: directory
+    owner: "{{ iperf_username }}"
+    group: "{{ iperf_username }}"
+    mode: '0755'
+  become: true
+
+# added service script
+- name: create iperf-server template
+  template:
+    src: iperf-server.service.j2
+    dest: "/etc/systemd/system/{{ iperf_service }}.service"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  notify:
+    - restart iperf server
+  become: true
+  # register: iperf_server_script
+
+- name: create logrotate iperf configuration files
+  template:
+    src: 'iperf-logrotate.j2'
+    dest: '/etc/logrotate.d/{{ item.name }}'
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart iperf server
+  become: true
+  with_items:
+    - '{{ iperf_logrotate }}'

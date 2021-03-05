@@ -1,4 +1,25 @@
 ---
+iperf_username: iperf
+iperf_service: "{{ iperf_username }}-server"
 iperf_package: iperf3
-iperf_executable: iperf3
+iperf_executable: /usr/bin/iperf3
 iperf_port: 5001
+iperf_debug: false
+iperf_debug_options: "{{ '--debug' if iperf_debug == 'true' else '' }}"
+iperf_log_folder: "/var/log/{{ iperf_username }}"
+iperf_logrotate_folder: "{{ iperf_log_folder }}"
+iperf_logrotate:
+  - name: "log-rotate-{{ iperf_service }}"
+    definitions:
+      - logs:
+          - "{{ iperf_log_folder }}/iperf.log"
+        options:
+          - rotate 21
+          - daily
+          - missingok
+          - ifempty
+          - compress
+          - nomail
+          - dateext
+          - copytruncate
+          - olddir {{ iperf_logrotate_folder }}

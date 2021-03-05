@@ -1,0 +1,7 @@
+---
+- name: restart iperf server
+  systemd:
+    daemon_reload: true
+    name: "{{ iperf_service }}"
+    state: restarted
+  become: true
