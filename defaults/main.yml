@@ -5,11 +5,11 @@ iperf_package: iperf3
 iperf_executable: /usr/bin/iperf3
 iperf_port: 5001
 iperf_debug: false
-iperf_debug_options: "{{ '--debug' if iperf_debug == 'true' else '' }}"
+iperf_debug_options: "{{ '--debug' if iperf_debug == true else '' }}"
 iperf_ipv4: true
-iperf_ipv4_options: "{{ '--version4' if iperf_ipv4 == 'true' else '' }}"
+iperf_ipv4_options: "{{ '--version4' if iperf_ipv4 == true else '' }}"
 iperf_ipv6: false
-iperf_ipv6_options: "{{ '--version6' if iperf_ipv6 == 'true' else '' }}"
+iperf_ipv6_options: "{{ '--version6' if iperf_ipv6 == true else '' }}"
 iperf_log_folder: "/var/log/{{ iperf_username }}"
 iperf_logrotate_folder: "{{ iperf_log_folder }}"
 iperf_logrotate:
