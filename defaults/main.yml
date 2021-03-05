@@ -6,6 +6,7 @@ iperf_executable: /usr/bin/iperf3
 iperf_port: 5001
 iperf_debug: false
 iperf_debug_options: "{{ '--debug' if iperf_debug == true else '' }}"
+# don't set iperf_ipv4 and iperf_ipv6 in parallel to true
 iperf_ipv4: true
 iperf_ipv4_options: "{{ '--version4' if iperf_ipv4 == true else '' }}"
 iperf_ipv6: false
