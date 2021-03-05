@@ -34,8 +34,7 @@ jobs:
           release_name: Release ${{ github.ref }}
           body: |
             Changes in this Release
-            - changed logrotation config
-            - introduced logrotation folder for rotated logs
+            - first initial release of iperf server
           draft: false
           prerelease: false
 
