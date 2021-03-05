@@ -34,7 +34,7 @@ jobs:
           release_name: Release ${{ github.ref }}
           body: |
             Changes in this Release
-            - first initial release of iperf server
+            - fixed parameter usage for iperf_ipv4 and iperf_ipv6
           draft: false
           prerelease: false
 
