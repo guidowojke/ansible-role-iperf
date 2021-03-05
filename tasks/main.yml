@@ -5,6 +5,7 @@
     autoremove: true
     state: present
     pkg:
+      - logrotate  # for logrotation of iperf.log
       - "{{ iperf_package }}"
   become: true
 
